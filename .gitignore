@@ -11,3 +11,5 @@ src-tauri/target/
 # logs
 *.log
 npm-debug.log*
+.idea
+.agents
