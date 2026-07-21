@@ -1,0 +1,13 @@
+# dependencies
+node_modules/
+# build output
+dist/
+dist-ssr/
+# rust
+src-tauri/target/
+# editor
+.DS_Store
+*.local
+# logs
+*.log
+npm-debug.log*
