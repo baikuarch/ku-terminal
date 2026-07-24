@@ -104,6 +104,10 @@ onMounted(async () => {
         void saveSshPassword(def.ssh.credentialId ?? def.id, password);
       }
       sessionId = await createSshSession(def.ssh, password, channel);
+      // cd to startup directory if configured
+      if (def.cwd) {
+        writeSession(sessionId, `cd ${def.cwd}\n`);
+      }
     }
     tabs.bindSession(props.tab.id, sessionId);
     doFit();

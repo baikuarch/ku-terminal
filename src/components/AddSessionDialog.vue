@@ -23,6 +23,7 @@ const fieldErrors = reactive<Record<RequiredField, string>>({
 const form = reactive({
   name: props.session?.name ?? "",
   group: props.session?.group ?? props.group ?? groups[0] ?? "Production",
+  cwd: props.session?.cwd ?? "",
   host: props.session?.ssh?.host ?? "",
   port: props.session?.ssh?.port ?? 22,
   user: props.session?.ssh?.user ?? "",
@@ -50,6 +51,7 @@ function submit() {
     kind: existing?.kind ?? "ssh",
     group: form.group,
     status: existing?.status ?? "idle",
+    cwd: form.cwd.trim() || undefined,
     ssh: {
       host: form.host.trim(),
       port: Number(form.port) || 22,
@@ -138,6 +140,14 @@ function stepPort(delta: number) {
             @input="clearFieldError('user')"
           />
           <span v-if="fieldErrors.user" class="field-error">{{ fieldErrors.user }}</span>
+        </label>
+        <label>
+          <span>Startup Directory <em>(optional)</em></span>
+          <input
+            v-model="form.cwd"
+            type="text"
+            placeholder="/home/user or C:\Users\me"
+          />
         </label>
         <div class="auth-field">
           <span>Authentication</span>
